@@ -1,0 +1,709 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyMate | Student Study Planner</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="./style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="logo">
+                <div class="logo-icon">S</div>
+                <span>StudyMate</span>
+            </div>
+
+            <div class="sidebar-menu">
+
+                <p class="menu-heading">MAIN MENU</p>
+
+                <button class="nav-link active" data-page="dashboard">
+                    <span>🏠</span>
+                    <span>Dashboard</span>
+                </button>
+
+                <button class="nav-link" data-page="tasks">
+                    <span>📝</span>
+                    <span>My Tasks</span>
+                </button>
+
+                <button class="nav-link" data-page="subjects">
+                    <span>📚</span>
+                    <span>Subjects</span>
+                </button>
+
+                <button class="nav-link" data-page="analytics">
+                    <span>📊</span>
+                    <span>Analytics</span>
+                </button>
+
+                <p class="menu-heading settings-heading">PERSONAL</p>
+
+                <button class="nav-link" data-page="profile">
+                    <span>👤</span>
+                    <span>My Profile</span>
+                </button>
+
+                <button class="nav-link" data-page="settings">
+                    <span>⚙️</span>
+                    <span>Settings</span>
+                </button>
+
+            </div>
+
+            <div class="sidebar-bottom">
+
+                <div class="sidebar-help">
+                    <div class="help-icon">💡</div>
+                    <h4>Stay Focused!</h4>
+                    <p>Small steps every day lead to big achievements.</p>
+                </div>
+
+                <p class="sidebar-footer">StudyMate © 2026</p>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- TOP HEADER -->
+            <header class="top-header">
+
+                <div class="header-left">
+
+                    <button class="menu-toggle" id="menuToggle">
+                        ☰
+                    </button>
+
+                    <div>
+                        <h2 id="pageTitle">Dashboard</h2>
+                        <p id="pageSubtitle">Your study overview</p>
+                    </div>
+
+                </div>
+
+                <div class="header-right">
+
+                    <span class="today-date" id="todayDate"></span>
+
+                    <button class="theme-toggle" id="headerThemeToggle">
+                        🌙
+                    </button>
+
+                    <div class="header-avatar" id="headerAvatar">S</div>
+
+                </div>
+
+            </header>
+
+
+            <!-- PAGE CONTENT -->
+            <div class="page-container">
+
+
+                <!-- DASHBOARD PAGE -->
+                <section class="page-section active" id="dashboardPage">
+
+                    <div class="welcome-banner">
+
+                        <div class="welcome-content">
+
+                            <p class="welcome-label">WELCOME BACK 👋</p>
+
+                            <h1>Hello, <span id="welcomeName">Student</span>!</h1>
+
+                            <p>
+                                Stay focused, manage your tasks and achieve your study goals.
+                            </p>
+
+                        </div>
+
+                        <div class="welcome-image">🎓</div>
+
+                    </div>
+
+
+                    <div class="section-heading">
+                        <div>
+                            <h3>Study Overview</h3>
+                            <p>Track your academic progress</p>
+                        </div>
+                    </div>
+
+
+                    <div class="stats-grid">
+
+                        <div class="stat-card">
+                            <div class="stat-icon blue">📝</div>
+                            <p>Total Tasks</p>
+                            <h2 id="totalTasks">0</h2>
+                            <span>All your tasks</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon green">✅</div>
+                            <p>Completed</p>
+                            <h2 id="completedTasks">0</h2>
+                            <span>Successfully completed</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon orange">⏳</div>
+                            <p>Pending</p>
+                            <h2 id="pendingTasks">0</h2>
+                            <span>Tasks to complete</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon red">⚠️</div>
+                            <p>Overdue</p>
+                            <h2 id="overdueTasks">0</h2>
+                            <span>Past due date</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-grid">
+
+                        <div class="content-card progress-card">
+
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Overall Progress</h3>
+                                    <p>Your task completion rate</p>
+                                </div>
+                                <span class="card-icon">🎯</span>
+                            </div>
+
+                            <div class="progress-number" id="progressText">0%</div>
+
+                            <div class="progress-track">
+                                <div class="progress-fill" id="progressBar"></div>
+                            </div>
+
+                            <p class="progress-message" id="progressMessage">
+                                Start adding tasks to track your progress.
+                            </p>
+
+                        </div>
+
+
+                        <div class="content-card quick-actions-card">
+
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Quick Actions</h3>
+                                    <p>Manage your study activities</p>
+                                </div>
+                            </div>
+
+                            <button class="quick-action" data-go="tasks">
+                                <span class="quick-icon">➕</span>
+                                <span>
+                                    <strong>Add New Task</strong>
+                                    <small>Create a study task</small>
+                                </span>
+                                <span class="arrow">›</span>
+                            </button>
+
+                            <button class="quick-action" data-go="subjects">
+                                <span class="quick-icon">📚</span>
+                                <span>
+                                    <strong>View Subjects</strong>
+                                    <small>Check subject progress</small>
+                                </span>
+                                <span class="arrow">›</span>
+                            </button>
+
+                            <button class="quick-action" data-go="analytics">
+                                <span class="quick-icon">📊</span>
+                                <span>
+                                    <strong>View Analytics</strong>
+                                    <small>Check study statistics</small>
+                                </span>
+                                <span class="arrow">›</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="content-card upcoming-card">
+
+                        <div class="card-heading">
+                            <div>
+                                <h3>Upcoming Tasks</h3>
+                                <p>Your pending study activities</p>
+                            </div>
+
+                            <button class="text-button" data-go="tasks">
+                                View All →
+                            </button>
+                        </div>
+
+                        <div id="upcomingTasks">
+                            <p class="empty-message">
+                                No upcoming tasks. Add a new task to get started!
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- MY TASKS PAGE -->
+                <section class="page-section" id="tasksPage">
+
+                    <div class="page-intro">
+                        <h1>My Tasks 📝</h1>
+                        <p>Create, organize and manage your study tasks.</p>
+                    </div>
+
+                    <div class="content-card">
+
+                        <div class="card-heading">
+                            <div>
+                                <h3 id="taskFormTitle">Add New Task</h3>
+                                <p>Enter your study task details below.</p>
+                            </div>
+                        </div>
+
+                        <form id="taskForm">
+
+                            <input type="hidden" id="editTaskId">
+
+                            <div class="form-grid">
+
+                                <div class="form-group full-width">
+                                    <label for="taskName">Task Name</label>
+                                    <input type="text" id="taskName"
+                                           placeholder="Enter task name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <input type="text" id="subject"
+                                           placeholder="Enter subject name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dueDate">Due Date</label>
+                                    <input type="date" id="dueDate" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="priority">Priority</label>
+                                    <select id="priority" required>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium" selected>Medium</option>
+                                        <option value="High">High</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="form-actions">
+
+                                <button type="submit" class="primary-btn"
+                                        id="submitTaskBtn">
+                                    ➕ Add Task
+                                </button>
+
+                                <button type="button" class="secondary-btn"
+                                        id="cancelEditBtn" hidden>
+                                    Cancel
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                    <div class="content-card task-list-card">
+
+                        <div class="card-heading">
+                            <div>
+                                <h3>All Tasks</h3>
+                                <p>View and manage your tasks.</p>
+                            </div>
+                        </div>
+
+                        <div class="task-toolbar">
+
+                            <input type="search" id="searchInput"
+                                   placeholder="Search tasks...">
+
+                            <div class="filter-buttons">
+
+                                <button class="filter-btn active"
+                                        data-filter="all">
+                                    All
+                                </button>
+
+                                <button class="filter-btn"
+                                        data-filter="pending">
+                                    Pending
+                                </button>
+
+                                <button class="filter-btn"
+                                        data-filter="completed">
+                                    Completed
+                                </button>
+
+                                <button class="filter-btn"
+                                        data-filter="overdue">
+                                    Overdue
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div id="taskList">
+                            <p class="empty-message">
+                                No tasks available. Add your first task!
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- SUBJECTS PAGE -->
+                <section class="page-section" id="subjectsPage">
+
+                    <div class="page-intro">
+                        <h1>My Subjects 📚</h1>
+                        <p>View your subjects and track your learning progress.</p>
+                    </div>
+
+                    <div class="subject-overview-grid">
+
+                        <div class="content-card">
+                            <div class="stat-icon blue">📖</div>
+                            <p>Total Subjects</p>
+                            <h2 id="totalSubjects">0</h2>
+                        </div>
+
+                        <div class="content-card">
+                            <div class="stat-icon green">✅</div>
+                            <p>Completed Tasks</p>
+                            <h2 id="subjectCompletedTasks">0</h2>
+                        </div>
+
+                        <div class="content-card">
+                            <div class="stat-icon orange">⏳</div>
+                            <p>Pending Tasks</p>
+                            <h2 id="subjectPendingTasks">0</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="content-card">
+
+                        <div class="card-heading">
+                            <div>
+                                <h3>Subject Progress</h3>
+                                <p>Progress based on completed tasks.</p>
+                            </div>
+                        </div>
+
+                        <div id="subjectProgressList">
+                            <p class="empty-message">
+                                Add tasks with subject names to see your subject progress.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ANALYTICS PAGE -->
+                <section class="page-section" id="analyticsPage">
+
+                    <div class="page-intro">
+                        <h1>Study Analytics 📊</h1>
+                        <p>Understand your productivity and study performance.</p>
+                    </div>
+
+                    <div class="stats-grid">
+
+                        <div class="stat-card">
+                            <div class="stat-icon blue">📝</div>
+                            <p>Total Tasks</p>
+                            <h2 id="analyticsTotal">0</h2>
+                            <span>All tasks</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon green">✅</div>
+                            <p>Completed</p>
+                            <h2 id="analyticsCompleted">0</h2>
+                            <span>Finished tasks</span>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon orange">📈</div>
+                            <p>Completion Rate</p>
+                            <h2 id="analyticsRate">0%</h2>
+                            <span>Overall performance</span>
+                        </div>
+
+                    </div>
+
+                    <div class="charts-grid">
+
+                        <div class="content-card chart-card">
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Weekly Study Activity</h3>
+                                    <p>Tasks completed during the last 7 days.</p>
+                                </div>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="weeklyChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="content-card chart-card">
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Task Summary</h3>
+                                    <p>Completed and pending tasks.</p>
+                                </div>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="taskSummaryChart"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- MY PROFILE PAGE -->
+                <section class="page-section" id="profilePage">
+
+                    <div class="page-intro">
+                        <h1>My Profile 👤</h1>
+                        <p>Manage your personal and academic information.</p>
+                    </div>
+
+                    <div class="profile-layout">
+
+                        <div class="content-card profile-preview-card">
+
+                            <div class="profile-preview" id="profilePreview">
+                                <div class="profile-placeholder">👤</div>
+                            </div>
+
+                            <h2 id="profileDisplayName">Student Name</h2>
+                            <p id="profileDisplayEmail">student@example.com</p>
+
+                            <span class="profile-tag">Student</span>
+
+                        </div>
+
+
+                        <div class="content-card profile-form-card">
+
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Personal Information</h3>
+                                    <p>Update your student profile.</p>
+                                </div>
+                            </div>
+
+                            <form id="profileForm">
+
+                                <div class="form-group profile-photo-group">
+                                    <label for="profileImage">Profile Photo</label>
+
+                                    <input type="file" id="profileImage"
+                                           accept="image/*">
+
+                                    <small>Maximum image size: 2MB</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="studentName">Full Name</label>
+
+                                    <input type="text" id="studentName"
+                                           placeholder="Enter your name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="studentEmail">Email Address</label>
+
+                                    <input type="email" id="studentEmail"
+                                           placeholder="Enter your email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="university">University / Institute</label>
+
+                                    <input type="text" id="university"
+                                           placeholder="Enter university name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="degreeProgram">Degree / Course</label>
+
+                                    <input type="text" id="degreeProgram"
+                                           placeholder="Enter your degree or course">
+                                </div>
+
+                                <div class="form-grid">
+
+                                    <div class="form-group">
+                                        <label for="academicYear">Academic Year</label>
+
+                                        <select id="academicYear">
+                                            <option value="">Select year</option>
+                                            <option value="Year 1">Year 1</option>
+                                            <option value="Year 2">Year 2</option>
+                                            <option value="Year 3">Year 3</option>
+                                            <option value="Year 4">Year 4</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="semester">Semester</label>
+
+                                        <select id="semester">
+                                            <option value="">Select semester</option>
+                                            <option value="Semester 1">Semester 1</option>
+                                            <option value="Semester 2">Semester 2</option>
+                                            <option value="Semester 3">Semester 3</option>
+                                            <option value="Semester 4">Semester 4</option>
+                                            <option value="Semester 5">Semester 5</option>
+                                            <option value="Semester 6">Semester 6</option>
+                                            <option value="Semester 7">Semester 7</option>
+                                            <option value="Semester 8">Semester 8</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-btn">
+                                        💾 Save Profile
+                                    </button>
+                                </div>
+
+                                <p id="profileMessage" class="form-message"></p>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- SETTINGS PAGE -->
+                <section class="page-section" id="settingsPage">
+
+                    <div class="page-intro">
+                        <h1>Settings ⚙️</h1>
+                        <p>Customize your StudyMate experience.</p>
+                    </div>
+
+                    <div class="content-card settings-card">
+
+                        <div class="settings-item">
+                            <div class="settings-icon">🎨</div>
+
+                            <div class="settings-info">
+                                <h3>Appearance</h3>
+                                <p>Choose your preferred application theme.</p>
+                            </div>
+                        </div>
+
+                        <div class="theme-options">
+
+                            <button class="theme-option active"
+                                    id="lightThemeBtn" data-theme="light">
+                                ☀️ Light Mode
+                            </button>
+
+                            <button class="theme-option"
+                                    id="darkThemeBtn" data-theme="dark">
+                                🌙 Dark Mode
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="content-card settings-card">
+
+                        <div class="settings-item">
+                            <div class="settings-icon">ℹ️</div>
+
+                            <div class="settings-info">
+                                <h3>About StudyMate</h3>
+
+                                <p>
+                                    StudyMate is a personal study planner
+                                    designed to help students organize tasks,
+                                    manage subjects and monitor study progress.
+                                </p>
+
+                                <p class="about-version">Version 1.0.0</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- FOOTER -->
+            <footer class="main-footer">
+                <p>© 2026 StudyMate. Designed for better learning.</p>
+            </footer>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
